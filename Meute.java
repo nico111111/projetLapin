@@ -7,11 +7,12 @@ public class Meute{
     private ArrayList<Lapin> laPinettes;
 
     public Meute(int nbLapinDepart){
+        MTRandom randGlob = new MTRandom();
         this.laMeute=new ArrayList<Lapin>();
         this.laPinettes=new ArrayList<Lapin>();
         Lapin lapinTemp;
         for (int i=0;i<nbLapinDepart;i++){
-            lapinTemp=new Lapin();
+            lapinTemp=new Lapin(5,1);
             if(lapinTemp.estMale()){
                 this.laMeute.add(lapinTemp);
             }else{
@@ -29,11 +30,15 @@ public class Meute{
         this.laMeute.remove(lapin);
     }
 
+    public void retirerLapine(Lapin lapin){
+        this.laPinettes.remove(lapin);
+    }
+
     public boolean peutSurvivre(){
         return laMeute.size()!=0 && laPinettes.size()!=0;
     }
 
-    public void portePourTous(){
+    public boolean portePourTous(){
         if(peutSurvivre()){
             Lapin lapin;
             for(Lapin lapine : laPinettes){
@@ -44,12 +49,34 @@ public class Meute{
                     }
                 }
             }
+            return true;
+        }else{
+          return false;
         }
+    }
+
+    public void vivre(){
+      portePourTous();
+      ArrayList<Lapin> laPinettesCopy = new ArrayList<Lapin>(laPinettes);
+      for(Lapin lapine : laPinettesCopy){
+        lapine.veillir();
+        if(lapine.estMort()){
+          this.retirerLapine(lapine);
+        }
+      }
+      ArrayList<Lapin> laMeuteCopy = new ArrayList<Lapin>(laMeute);
+      for(Lapin lapin : laMeuteCopy){
+        lapin.veillir();
+        if(lapin.estMort()){
+          this.retirerLapin(lapin);
+        }
+      }
+
     }
 
     @Override
     public String toString(){
-        return laMeute.toString() + "\n\n" + laPinettes.toString();
+        return "nb de Male : " + laMeute.size() + "\nnb de Female : " + laPinettes.size();
     }
 
 }

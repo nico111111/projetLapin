@@ -14,6 +14,13 @@ public class Lapin{
         this.maturite=0;
     }
 
+    public Lapin(int _age, int _maturite){
+        this.random=new MTRandom();
+        this.sexe=this.random.nextInt(2);
+        this.age=_age;
+        this.maturite=_maturite;
+    }
+
     //cette fonction est beaucoup trop bien
     public boolean estMort(){
         Double test=random.nextDouble();
