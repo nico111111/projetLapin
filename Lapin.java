@@ -7,18 +7,22 @@ public class Lapin{
     private int comptPorte;
 
     //creation d'in nouveau lapin
-    public Lapin(){
+    public Lapin(int _sexe){
         this.random=new MTRandom();
         this.sexe=this.random.nextInt(2);
         this.age=0;
         this.maturite=0;
+
     }
 
-    public Lapin(int _age, int _maturite){
+    public Lapin(int _age, int _maturite,int _sexe){
         this.random=new MTRandom();
-        this.sexe=this.random.nextInt(2);
+        this.sexe=_sexe;
         this.age=_age;
         this.maturite=_maturite;
+        if(this.sexe==0){
+          this.comptPorte=8;
+        }
     }
 
     //cette fonction est beaucoup trop bien
@@ -55,7 +59,9 @@ public class Lapin{
         this.age=this.age+1;
         maturer();
         if(this.age%12==0){
-            devientMature();
+          if(!this.estMale()){
+              this.comptPorte=random.nextInt(5)+4;
+          }
         }
     }
 
@@ -83,11 +89,10 @@ public class Lapin{
         }
     }
     //TODO refaire les stats
+
+    //sert pas a grand chose ça maintenant
     public void devientMature(){
         this.maturite=1;
-        if(!this.estMale()){
-            this.comptPorte=random.nextInt(5)+4;
-        }
     }
 
     @Override

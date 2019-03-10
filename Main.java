@@ -1,6 +1,6 @@
 public class Main{
   public static void main(String[] args){
-    Meute testColony = new Meute(100000);
+    Meute testColony = new Meute(10000);
     int i=0;
     while(testColony.peutSurvivre()){
       testColony.vivre();
