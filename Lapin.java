@@ -1,4 +1,4 @@
-
+// test merge avec felix
 public class Lapin{
     private int sexe; // 0 madame 1 monsieur
     private int age; // en mois
