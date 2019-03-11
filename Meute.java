@@ -28,7 +28,7 @@ public class Meute{
 
         }
     }
-    //bite
+    
     //TODO tester sexe
     public void ajouterLapin(Lapin lapin){
       if(lapin.estMale()){
