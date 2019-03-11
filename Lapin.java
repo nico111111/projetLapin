@@ -26,6 +26,7 @@ public class Lapin{
     }
 
     //cette fonction est beaucoup trop bien
+    //je suis d'accord
     public boolean estMort(){
         Double test=random.nextDouble();
         if(this.maturite==0){
