@@ -28,7 +28,7 @@ public class Meute{
 
         }
     }
-    
+
     //TODO tester sexe
     public void ajouterLapin(Lapin lapin){
       if(lapin.estMale()){
@@ -52,6 +52,7 @@ public class Meute{
 
     //TODO faire des porté plus etalé sur une année plutot que tout au début
     public boolean portePourTous(){
+        this.lapinNe=0;
         if(peutSurvivre()){
             Lapin lapin;
             ArrayList<Lapin> laPinettesCopy = new ArrayList<Lapin>(laPinettes);
@@ -71,6 +72,8 @@ public class Meute{
     }
 
     public void vivre(){
+      this.lapinMort=0;
+      this.lapineMorte=0;
       portePourTous();
       ArrayList<Lapin> laPinettesCopy = new ArrayList<Lapin>(laPinettes);
       for(Lapin lapine : laPinettesCopy){
