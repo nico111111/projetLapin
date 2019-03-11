@@ -27,11 +27,14 @@ public class Lapin{
 
     //cette fonction est beaucoup trop bien
     public boolean estMort(){
-        Double test=random.nextDouble();
-        if(this.maturite==0){
-            return (test<0.80);
-        }
-        return (test<0.5+(age%10)/10);
+      if(this.age%12==0){
+          Double test=random.nextDouble();
+          if(this.maturite==0){
+              return (test<0.80);
+          }
+          return (test<0.5+((age/12)%10)/10);
+      }
+      return false;
     }
 
     //ça sert !

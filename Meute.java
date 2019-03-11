@@ -77,19 +77,19 @@ public class Meute{
       portePourTous();
       ArrayList<Lapin> laPinettesCopy = new ArrayList<Lapin>(laPinettes);
       for(Lapin lapine : laPinettesCopy){
-        lapine.veillir();
         if(lapine.estMort()){
           this.retirerLapin(lapine);
           this.lapineMorte++;
         }
+        lapine.veillir();
       }
       ArrayList<Lapin> laMeuteCopy = new ArrayList<Lapin>(laMeute);
       for(Lapin lapin : laMeuteCopy){
-        lapin.veillir();
         if(lapin.estMort()){
           this.retirerLapin(lapin);
           this.lapinMort++;
         }
+        lapin.veillir();
       }
 
     }
