@@ -25,14 +25,14 @@ public class Lapin{
         }
     }
 
-    //cette fonction est beaucoup trop bien
+    //cette fonction est beaucoup trop bien + +
     public boolean estMort(){
       if(this.age%12==0){
           Double test=random.nextDouble();
           if(this.maturite==0){
               return (test<0.80);
           }
-          return (test<0.5+((age/12)%10)/10);
+          return (test<0.5+((age%120)/12)/10);
       }
       return false;
     }
@@ -60,37 +60,39 @@ public class Lapin{
     //nice veillissement
     public void veillir(){
         this.age=this.age+1;
-        maturer();
-        if(this.age%12==0){
-          if(!this.estMale()){
-              this.comptPorte=random.nextInt(5)+4;
+        if(this.maturite!=1){
+          maturer();
+        }
+
+        if(!this.estMale()){
+          if(this.age%12==0){
+              double test = random.nextDouble();
+              if(test<0.125){
+                this.comptPorte=4;
+              }if(test<0.375){
+                this.comptPorte=5;
+              }if(test<0.625){
+                this.comptPorte=6;
+              }if(test<0.875){
+                this.comptPorte=7;
+              }else{
+                this.comptPorte=8;
+              }
           }
         }
     }
 
     //la bonne puberté TODO a refaire degeu
     public void maturer(){
+        double[] tabStat = {0.75,0.5,0.25,0};
         MTRandom oui= new MTRandom();
         double test=oui.nextDouble();
-        if(this.age==5){
-            if(test>0.75){
-                devientMature();
-            }
-        }
-        if(this.age==6){
-            if(test>0.5){
-                devientMature();
-            }
-        }
-        if(this.age==7){
-            if(test>0.25){
-                devientMature();
-            }
-        }
-        if(this.age==8){
+        if(this.age>4){
+          if(tabStat[this.age-5]<test){
             devientMature();
+          }
         }
-    }
+      }
     //TODO refaire les stats
 
     //sert pas a grand chose ça maintenant
