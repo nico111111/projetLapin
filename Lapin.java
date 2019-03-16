@@ -7,7 +7,6 @@ public class Lapin
     private int      sexe; // 0 madame 1 monsieur
     private int      age; // en mois
     private int      maturite; // 0 pas mature 1 mature
-    private MTRandom random; //utilisé pour tout le random
     private int      comptPorte; //nombre de portée possible sur 1 an
 
 //----------------------------------------------------------------------------//
@@ -18,11 +17,9 @@ public class Lapin
 // En sortie: un lapin nouveau né                                             //
 //----------------------------------------------------------------------------//
 
-    //creation d'in nouveau lapin
     public Lapin (int _sexe)
     {
-        this.random = new MTRandom();
-        this.sexe = this.random.nextInt(2);
+        this.sexe = _sexe;
         this.age = 0;
         this.maturite = 0;
 
@@ -39,7 +36,6 @@ public class Lapin
 
     public Lapin (int _age, int _maturite, int _sexe)
     {
-        this.random = new MTRandom();
         this.sexe = _sexe;
         this.age = _age;
         this.maturite = _maturite;
@@ -57,17 +53,15 @@ public class Lapin
 // En sortie: nous dit si le lapin ets mort ou non                            //
 //----------------------------------------------------------------------------//
 
-    //cette fonction est beaucoup trop bien + +
-    public boolean estMort ( )
+    public boolean estMort (Double rand)
     {
       if (this.age % 12 == 0)
       {
-          Double test = random.nextDouble();
           if (this.maturite == 0)
           {
-              return (test < 0.80);
+              return (rand < 0.80);
           }
-          return (test < 0.5 + ((age % 120) / 12) / 10);
+          return (rand < 0.5 + ((age % 120) / 12) / 10);
       }
       return false;
     }
@@ -81,7 +75,6 @@ public class Lapin
 // En sortie: retourne vrai ou faux si le lapin peut avoir des bébés          //
 //----------------------------------------------------------------------------//
 
-    //ça sert !
     public boolean peutFaireDesLapins ( )
     {
         if (this.sexe == 0 && this.maturite == 1 && this.comptPorte != 0)
@@ -116,10 +109,10 @@ public class Lapin
 // En sortie: un nombre entre 4 et 8 pour le nombre de bébé né                //
 //----------------------------------------------------------------------------//
 
-    public int acouplement ( )
+    public int acouplement (int rand)
     {
         this.comptPorte--;
-        return random.nextInt(5) + 4;
+        return rand;
     }
 
 //----------------------------------------------------------------------------//
@@ -133,32 +126,31 @@ public class Lapin
 //            le compteur de porté de la femelle                              //
 //----------------------------------------------------------------------------//
 
-    public void veillir ( )
+    public void veillir (double rand, double randMaturer)
     {
         this.age = this.age + 1;
         if (this.maturite != 1)
         {
-          maturer();
+          maturer(randMaturer);
         }
 
         if (!this.estMale())
         {
           if (this.age % 12 == 0)
           {
-              double test = random.nextDouble();
-              if (test < 0.125)
+              if (rand < 0.125)
               {
                 this.comptPorte = 4;
               }
-              if (test < 0.375)
+              if (rand < 0.375)
               {
                 this.comptPorte = 5;
               }
-              if (test < 0.625)
+              if (rand < 0.625)
               {
                 this.comptPorte = 6;
               }
-              if (test < 0.875)
+              if (rand < 0.875)
               {
                 this.comptPorte = 7;
               }
@@ -179,14 +171,12 @@ public class Lapin
 // En sortie: rend le lapin mature                                                          //
 //----------------------------------------------------------------------------//
 
-    public void maturer ( )
+    public void maturer (double rand)
     {
         double[] tabStat = {0.75,0.5,0.25,0};
-        MTRandom oui = new MTRandom();
-        double   test = oui.nextDouble();
         if (this.age > 4)
         {
-          if (tabStat[this.age-5] < test)
+          if (tabStat[this.age-5] < rand)
           {
             this.maturite = 1;
           }

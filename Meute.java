@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class Meute
 {
-    private ArrayList<Lapin> laMeute; //Liste des lapins
-    private ArrayList<Lapin> laPinettes; //Liste des lapines
+    private ArrayList<Lapin> laMeute; //Liste des lapins Male
+    private ArrayList<Lapin> laPinettes; //Liste des lapines Female
     private MTRandom         randomGlob; //utilisé pour tout le random
     private int              lapineMorte; //nombre de lapine morte par mois
     private int              lapinMort; //nombre de lapin mort par mois
@@ -111,7 +111,7 @@ public class Meute
 //----------------------------------------------------------------------------//
 
     //TODO faire des porté plus etalé sur une année plutot que tout au début
-    public boolean portePourTous ( )
+    public void portePourTous ( )
     {
         this.lapinNe = 0;
         if (peutSurvivre())
@@ -122,7 +122,8 @@ public class Meute
             {
                 if (lapine.peutFaireDesLapins())
                 {
-                    for (int i = 0 ; i < lapine.acouplement() ; i++)
+                    int maxLapin = lapine.acouplement(randomGlob.nextInt(5) + 4);
+                    for (int i = 0 ; i < maxLapin ; i++)
                     {
                         lapin = new Lapin(this.randomGlob.nextInt(2));
                         ajouterLapin(lapin);
@@ -130,11 +131,6 @@ public class Meute
                     }
                 }
             }
-            return true;
-        }
-        else
-        {
-          return false;
         }
     }
 
@@ -156,22 +152,22 @@ public class Meute
       ArrayList<Lapin> laPinettesCopy = new ArrayList<Lapin>(laPinettes);
       for (Lapin lapine : laPinettesCopy)
       {
-        if (lapine.estMort())
+        if (lapine.estMort(randomGlob.nextDouble()))
         {
           this.retirerLapin(lapine);
           this.lapineMorte++;
         }
-        lapine.veillir();
+        lapine.veillir(randomGlob.nextDouble(), randomGlob.nextDouble());
       }
       ArrayList<Lapin> laMeuteCopy = new ArrayList<Lapin>(laMeute);
       for (Lapin lapin : laMeuteCopy)
       {
-        if (lapin.estMort())
+        if (lapin.estMort(randomGlob.nextDouble()))
         {
           this.retirerLapin(lapin);
           this.lapinMort++;
         }
-        lapin.veillir();
+        lapin.veillir(randomGlob.nextDouble(), randomGlob.nextDouble());
       }
 
     }
